@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -6,6 +8,8 @@ const Register = () => {
     email: "",
     password: ""
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,10 +25,20 @@ const Register = () => {
         },
         body: JSON.stringify(formData)
       });
-      const data = await res.json();
+      /*
       console.log(data);
       alert("Registered successfully!");
-    } catch (err) {
+    } */
+      const data = await res.json();
+      if (res.ok) {
+        alert("Registered successfully!");
+        navigate("/login"); // 🔁 Redirect to login page
+      } else {
+        alert(data.message || "Registration failed");
+      }
+    } 
+    
+    catch (err) {
       console.error(err);
       alert("Error registering user");
     }
