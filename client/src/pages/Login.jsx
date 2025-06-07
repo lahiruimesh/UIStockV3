@@ -36,11 +36,19 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-sm mx-auto mt-10">
-      <input name="email" type="email" placeholder="Email" onChange={handleChange} className="p-2 border" />
-      <input name="password" type="password" placeholder="Password" onChange={handleChange} className="p-2 border" />
-      <button type="submit" className="bg-green-600 text-white p-2 rounded">Login</button>
-    </form>
+    <div className="grid grid-cols-2 bg-purple-500">
+    <div className="flex bg-gray-500 flex-col">
+      <h1>Login</h1>
+      <p>Login to your account to continue</p>
+    </div>
+    <div className="bg-blue-500">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-sm mx-auto mt-10">
+        <input name="email" type="email" placeholder="Email" onChange={handleChange} className="p-2 border" />
+        <input name="password" type="password" placeholder="Password" onChange={handleChange} className="p-2 border" />
+        <button type="submit" className="bg-green-600 text-white p-2 rounded">Login</button>
+      </form>
+    </div>
+    </div>
   );
 };
 

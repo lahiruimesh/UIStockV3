@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
@@ -19,7 +20,7 @@ const AllProducts = () => {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="mx-auto p-6 bg-gray-900">
       <h1 className="text-3xl font-bold mb-6">All Products</h1>
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {products.map((product) => (
@@ -45,6 +46,8 @@ const AllProducts = () => {
                 Added by: {product.userId.email}
               </p>
             )}
+            <Link to={`/products/${product._id}`} className="block border rounded-xl p-4 shadow hover:shadow-lg transition">
+          </Link>
           </div>
         ))}
       </div>
