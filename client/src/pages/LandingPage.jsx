@@ -1,14 +1,14 @@
 import React from 'react';
+import Hero from '../layouts/Hero';
 
 const LandingPage = () => {
     return (
         <>
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-700">
-            <h1 className="text-4xl font-bold">Welcome to the Landing Page</h1>
+        <div className="flex flex-col items-center justify-center h-screen bg-brand-dark">
+            <div>
+                <Hero />
+            </div>
         </div>
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-700">
-        <h1 className="text-4xl font-bold">Welcome to the Landing Page</h1>
-    </div>
     </>
     )
 }
