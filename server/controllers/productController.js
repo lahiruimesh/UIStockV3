@@ -5,11 +5,15 @@ const Product = require('../models/Product');
 // @access  Private
 const addProduct = async (req, res) => {
   try {
-    const { name, description, price } = req.body;
+    const { title, category, description, image, link, file, message } = req.body;
     const newProduct = new Product({
-      name,
+      title,
+      category,
       description,
-      price,
+      image,
+      link,
+      file,
+      message,
       userId: req.user.id
     });
 
@@ -18,6 +22,19 @@ const addProduct = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to add product" });
+  }
+};
+
+// @desc    Get all products (public)
+// @route   GET /api/products
+// @access  Public
+const getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find().populate('userId', 'email'); // optional: include user email
+    res.json(products);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch products" });
   }
 };
 
@@ -37,4 +54,5 @@ const getMyProducts = async (req, res) => {
 module.exports = {
   addProduct,
   getMyProducts,
+  getAllProducts,
 };

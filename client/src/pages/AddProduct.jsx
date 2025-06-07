@@ -2,9 +2,13 @@ import { useState } from "react";
 
 const AddProduct = () => {
   const [product, setProduct] = useState({
-    name: "",
+    title: "",
     description: "",
-    price: ""
+    category: "",
+    image: "",
+    link: "",
+    file: "",
+    message: ""
   });
 
   const handleChange = (e) => {
@@ -28,7 +32,7 @@ const AddProduct = () => {
       const data = await res.json();
       if (res.ok) {
         alert("Product added!");
-        setProduct({ name: "", description: "", price: "" });
+        setProduct({ title: "", description: "", category: "", image: "", link: "", file: "", message: "" });
       } else {
         alert(data.message || "Failed to add product");
       }
@@ -39,10 +43,32 @@ const AddProduct = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-10 flex flex-col gap-4">
-      <input name="name" type="text" placeholder="Product Name" onChange={handleChange} className="p-2 border" value={product.name} />
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-10 flex flex-col gap-4">
+      <input name="title" type="text" placeholder="Title" onChange={handleChange} className="p-2 border" value={product.title} />
       <input name="description" type="text" placeholder="Description" onChange={handleChange} className="p-2 border" value={product.description} />
-      <input name="price" type="number" placeholder="Price" onChange={handleChange} className="p-2 border" value={product.price} />
+      <select
+          name="category"
+          onChange={handleChange}
+          className="p-2 border"
+          value={product.category}
+        >
+          <option value="">Select a category</option>
+          <option value="UI Design">UI Design</option>
+          <option value="UX Design">UX Design</option>
+          <option value="Web Design">Web Design</option>
+          <option value="Graphic Design">Graphic Design</option>
+          <option value="Illustration">Illustration</option>
+          <option value="Motion Graphics">Motion Graphics</option>
+          <option value="Product Design">Product Design</option>
+          <option value="Branding">Branding</option>
+          <option value="Print Design">Print Design</option>
+          <option value="Video">Video</option>
+          
+      </select>
+      <input name="image" type="text" placeholder="Image URL" onChange={handleChange} className="p-2 border" value={product.image} />
+      <input name="link" type="text" placeholder="Product Link" onChange={handleChange} className="p-2 border" value={product.link} />
+      <input name="file" type="text" placeholder="File URL or Name" onChange={handleChange} className="p-2 border" value={product.file} />
+      <textarea name="message" placeholder="Message or Notes" onChange={handleChange} className="p-2 border" value={product.message} />
       <button type="submit" className="bg-blue-600 text-white p-2 rounded">Add Product</button>
     </form>
   );
