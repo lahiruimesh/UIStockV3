@@ -5,7 +5,9 @@ const Product = require('../models/Product');
 // @access  Private
 const addProduct = async (req, res) => {
   try {
-    const { title, category, description, image, link, file, message } = req.body;
+    const { title, category, description, link, file, message } = req.body;
+    const image = req.file ? req.file.filename : null;
+
     const newProduct = new Product({
       title,
       category,

@@ -30,6 +30,10 @@ app.use('/api/auth', authRoutes);
 // Product routes
 app.use('/api/products', productRoutes);
 
+const path = require('path');
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
