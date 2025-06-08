@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -10,6 +10,8 @@ const Login = () => {
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +29,7 @@ const Login = () => {
       if (data.token) {
         localStorage.setItem("token", data.token);
         alert("Login successful!");
+        navigate('/');
       } else {
         alert(data.message || "Login failed");
       }
