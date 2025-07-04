@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 const CategoriesPreview = () => {
 
   const categories = [
-    {title : "UI Designs", description:"Beautiful user interfaces for mobile, web, and more. Get inspired or share your own!", button:"Browse UI Designs", path:"/category/ui-designs"},
-    {title : "UI Designs", description:"Beautiful user interfaces for mobile, web, and more. Get inspired or share your own!", button:"Browse UI Designs", path:"/category/ui-designs"},
-    {title : "UI Designs", description:"Beautiful user interfaces for mobile, web, and more. Get inspired or share your own!", button:"Browse UI Designs", path:"/category/ui-designs"}
+    {title : "UI Designs", description:"Beautiful user interfaces for mobile, web, and more. Get inspired or share your own!", button:"Browse UI Designs", path:"/category/ui-designs",image:"https://th.bing.com/th/id/OIP.qmnUHFw_JFwK1WZGW4UdGgHaFj?w=225&h=180&c=7&r=0&o=7&pid=1.7&rm=3"},
+    {title : "UI Designs", description:"Beautiful user interfaces for mobile, web, and more. Get inspired or share your own!", button:"Browse UI Designs", path:"/category/ui-designs",image:"https://th.bing.com/th/id/OIP.qmnUHFw_JFwK1WZGW4UdGgHaFj?w=225&h=180&c=7&r=0&o=7&pid=1.7&rm=3"},
+    {title : "UI Designs", description:"Beautiful user interfaces for mobile, web, and more. Get inspired or share your own!", button:"Browse UI Designs", path:"/category/ui-designs",image:"https://th.bing.com/th/id/OIP.qmnUHFw_JFwK1WZGW4UdGgHaFj?w=225&h=180&c=7&r=0&o=7&pid=1.7&rm=3"}
   ];
 
   return (
@@ -22,6 +22,7 @@ const CategoriesPreview = () => {
               className="bg-white shadow-md rounded-xl p-6 text-center border border-gray-200 hover:shadow-xl hover:border-blue-500 transition"
             >
               <div className="text-5xl mb-4">{cat.title}</div>
+              <img src= { cat.image } alt="images" />
               <h3 className="text-xl font-semibold text-gray-800">{cat.description}</h3>
             </Link>
           ))}
