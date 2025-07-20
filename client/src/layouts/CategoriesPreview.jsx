@@ -7,7 +7,7 @@ import codes from '../assets/codes.png';
 const CategoriesPreview = () => {
 
   const categories = [
-    {title : "UI Designs", description:"Beautiful user interfaces for mobile, web, and more. Explore clean layouts and modern design trends to inspire your projects.", button:"Browse UI Designs", path:"/category/ui-designs",image: ui },
+    {title : "UI Designs", description:"Beautiful user interfaces for mobile, web, and more. Explore clean layouts and modern design trends to inspire your projects.", button:"Browse UI Designs", path:"/allProducts",image: ui },
     {title : "Web Designs", description:"Complete web page layouts and creative website templates. Built with user experience and accessibility in mind for all devices.", button:"Browse UI Designs", path:"/category/ui-designs",image: web },
     {title : "Website Codes", description:"Download or upload HTML, CSS, and JavaScript snippets for stunning components. Speed up development with ready-to-use, customizable code.", button:"Browse UI Designs", path:"/category/ui-designs",image: codes }
   ];

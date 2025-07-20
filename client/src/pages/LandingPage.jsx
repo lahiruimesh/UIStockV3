@@ -1,6 +1,7 @@
 import React from 'react';
 import Hero from '../layouts/Hero';
 import CategoriesPreview from '../layouts/CategoriesPreview';
+import UplaodPreview from '../layouts/UploadPreview';
 
 const LandingPage = () => {
     return (
@@ -9,6 +10,7 @@ const LandingPage = () => {
             <div>
                 <Hero />
                 <CategoriesPreview />
+                <UplaodPreview />
             </div>
         </div>
     </>

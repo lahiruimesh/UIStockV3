@@ -26,12 +26,27 @@ const Header = () => {
 
         {/* Navigation Links */}
         <nav className="flex gap-6 text-white font-medium drop-shadow">
-          <Link to="/addProduct" className="hover:text-blue-300 transition">
-            Add Product
+
+          <Link to="/" className="hover:text-blue-300 transition mr-8">
+            Home
           </Link>
-          <Link to="/allProducts" className="hover:text-blue-300 transition">
-            All Products
+
+          <Link to="/" className="hover:text-blue-300 transition mr-8">
+            About
           </Link>
+
+          <Link to="/" className='hover:text-blue-300 transition mr-8'>
+            Features
+          </Link>
+
+          <Link to="/" className='hover:text-blue-300 transition mr-8'>
+          Blogs
+          </Link>
+
+          <Link to="/" className='hover:text-blue-300 transition mr-8'>
+          Contact
+          </Link>
+
         </nav>
 
         {/* Auth Buttons */}

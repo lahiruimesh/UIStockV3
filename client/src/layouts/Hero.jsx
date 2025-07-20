@@ -20,7 +20,7 @@ const Hero = () => {
         </p>
         <div className="grid grid-cols-3 pt-4">
           <Link to="/allProducts" className="bg-blue-700 text-white text-center px-2 py-3 w-48 rounded-lg hover:bg-white hover:text-blue-600">Our Products</Link>
-          <button className="bg-white text-blue-600 px-2 py-3 w-48 rounded-lg">Button 2</button>
+          <Link to="addProduct" className="bg-white text-blue-700 text-center px-2 py-3 w-48 rounded-lg hover:bg-blue-700 hover:text-white">Add Products</Link>
         </div>
       </div>
         
