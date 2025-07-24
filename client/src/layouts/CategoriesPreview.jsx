@@ -7,10 +7,32 @@ import codes from '../assets/codes.png';
 const CategoriesPreview = () => {
 
   const categories = [
-    {title : "UI Designs", description:"Beautiful user interfaces for mobile, web, and more. Explore clean layouts and modern design trends to inspire your projects.", button:"Browse UI Designs", path:"/allProducts",image: ui },
-    {title : "Web Designs", description:"Complete web page layouts and creative website templates. Built with user experience and accessibility in mind for all devices.", button:"Browse UI Designs", path:"/category/ui-designs",image: web },
-    {title : "Website Codes", description:"Download or upload HTML, CSS, and JavaScript snippets for stunning components. Speed up development with ready-to-use, customizable code.", button:"Browse UI Designs", path:"/category/ui-designs",image: codes }
+    {
+      title: "UI / UX",
+      description:
+        "Explore clean and modern user interface and user experience designs wireframes, mockups, and prototypes crafted for mobile and web apps.",
+      button: "Browse UI / UX Designs",
+      path: "/category/ui-ux",
+      image: ui,
+    },
+    {
+      title: "Web Templates",
+      description:
+        "Find complete website templates and reusable code components. You can upload full websites, page templates, or individual components with design and code.",
+      button: "Browse Web Templates & Code",
+      path: "/category/web-templates",
+      image: web,
+    },
+    {
+      title: "Graphic Design",
+      description:
+        "Download or share creative graphic assets like logos, posters, icons, and social media visuals for your branding and marketing needs.",
+      button: "Browse Graphic Designs",
+      path: "/category/graphic-designs",
+      image: codes,
+    }
   ];
+  
 
   return (
     <section className="w-full min-h-screen py-20">
