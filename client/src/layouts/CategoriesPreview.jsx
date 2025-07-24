@@ -13,7 +13,7 @@ const CategoriesPreview = () => {
   ];
 
   return (
-    <section className="w-full py-20 bg-gradient-to-br from-[#0a0e2a] via-[#201E54] to-[#03051a]">
+    <section className="w-full min-h-screen py-20">
       <div className="max-w-7xl mx-auto px-4">
         <h1 className="text-5xl font-extrabold text-center text-white mb-4">Explore Categories</h1>
         <p className="text-center text-xl text-gray-300 mb-16">

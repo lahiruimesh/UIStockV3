@@ -6,6 +6,8 @@ import AllProducts from "./pages/allProducts";
 import Header from "./components/Header";
 import ProductDetails from "./pages/ProductDetails";
 import LandingPage from "./pages/LandingPage";
+import Footer from "./components/Footer";
+
 function App() {
   return (
     <BrowserRouter>
