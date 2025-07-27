@@ -26,6 +26,7 @@ const AddProduct = () => {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
+    // Required fields
     const formData = new FormData();
     formData.append("title", product.title);
     formData.append("description", product.description);
@@ -34,7 +35,8 @@ const AddProduct = () => {
     formData.append("link", product.link);
     formData.append("file", product.file);
     formData.append("message", product.message);
-
+   
+    
     try {
       const res = await fetch("http://localhost:5000/api/products/add", {
         method: "POST",
@@ -67,34 +69,40 @@ const AddProduct = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-md mx-auto mt-10 flex flex-col gap-4"
-    >
+    <div className="min-h-screen bg-gradient-to-br from-[#0a0e2a] via-[#201E54] to-[#03051a] flex items-center justify-center p-6">
+  <div className="w-full mt-24 max-w-xl bg-white/5 backdrop-blur-md rounded-2xl shadow-lg p-8">
+    <div className="text-center mb-8">
+      <h1 className="text-3xl font-bold text-white mb-2">Add Your Product</h1>
+      <p className="text-gray-300 text-sm">Submit your design, code, or template to showcase your creativity.</p>
+    </div>
+
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <input
         name="title"
         type="text"
         placeholder="Title"
         onChange={handleChange}
-        className="p-2 border"
         value={product.title}
         required
+        className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-400 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+
       <input
         name="description"
         type="text"
         placeholder="Description"
         onChange={handleChange}
-        className="p-2 border"
         value={product.description}
         required
+        className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-400 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+
       <select
         name="category"
         onChange={handleChange}
-        className="p-2 border"
         value={product.category}
         required
+        className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-400 focus:outline-none focus:ring-2"
       >
         <option value="">Select a category</option>
         <option value="UI Design">UI Design</option>
@@ -108,41 +116,52 @@ const AddProduct = () => {
         <option value="Print Design">Print Design</option>
         <option value="Video">Video</option>
       </select>
+
       <input
         name="image"
         type="file"
         accept="image/*"
         onChange={handleFileChange}
-        className="p-2 border"
         required
+        className="p-3 rounded-md border border-gray-600 bg-white/10 text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-600 file:text-white file:cursor-pointer"
       />
+
       <input
         name="link"
         type="text"
         placeholder="Product Link"
         onChange={handleChange}
-        className="p-2 border"
         value={product.link}
+        className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-400 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+
       <input
         name="file"
         type="text"
         placeholder="File URL or Name"
         onChange={handleChange}
-        className="p-2 border"
         value={product.file}
+        className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-400 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+
       <textarea
         name="message"
         placeholder="Message or Notes"
         onChange={handleChange}
-        className="p-2 border"
         value={product.message}
+        className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-400 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
-      <button type="submit" className="bg-blue-600 text-white p-2 rounded">
+
+      <button
+        type="submit"
+        className="bg-blue-600 hover:bg-blue-700 transition-all text-white font-semibold p-3 rounded-md mt-2"
+      >
         Add Product
       </button>
     </form>
+  </div>
+</div>
+
   );
 };
 

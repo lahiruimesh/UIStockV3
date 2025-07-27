@@ -6,8 +6,8 @@ const productSchema = new mongoose.Schema({
     description: { type: String, required: true },
     image: { type: String, required: true },
     link: { type: String, required: true },
-    file: { type: String, required: true },
-    message: { type: String, required: true },
+    file: { type: String },
+    message: { type: String },
     createdAt: { type: Date, default: Date.now },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 });
