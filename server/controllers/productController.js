@@ -7,6 +7,7 @@ const addProduct = async (req, res) => {
   try {
     const { title, category, description, link, file, message } = req.body;
     const image = req.file ? req.file.filename : null;
+    
 
     const newProduct = new Product({
       title,

@@ -34,8 +34,12 @@ const AddProduct = () => {
     formData.append("image", product.image); // File
     formData.append("link", product.link);
     formData.append("file", product.file);
-    formData.append("message", product.message);
+    formData.append("message", product.message.trim());
    
+    if(product.message.trim()){
+      
+    }
+    
     
     try {
       const res = await fetch("http://localhost:5000/api/products/add", {
