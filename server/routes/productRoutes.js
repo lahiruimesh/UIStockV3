@@ -1,33 +1,41 @@
 const express = require('express');
 const router = express.Router();
 const verifyToken = require('../middleware/authMiddleware');
-const multer = require("multer");
-const { addProduct, getMyProducts, getAllProducts, getProductById } = require('../controllers/productController');
 
-// Define storage for multer
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Make sure this folder exists or create it
+// ✅ Import cloudinary storage
+const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('../utils/cloudinary');
+
+// ✅ Set up Cloudinary storage
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'products', // Cloudinary folder
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
   },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  }
 });
 
 const upload = multer({ storage: storage });
 
+// ✅ Import controllers
+const {
+  addProduct,
+  getMyProducts,
+  getAllProducts,
+  getProductById,
+} = require('../controllers/productController');
 
-
-// POST /api/products/add
+// ✅ Add product (image goes to Cloudinary)
 router.post('/add', verifyToken, upload.single('image'), addProduct);
 
-// Public route: get all products
+// ✅ Get all products (public)
 router.get('/', getAllProducts);
 
-// GET /api/products/my-products
+// ✅ Get my products (protected)
 router.get('/my-products', verifyToken, getMyProducts);
 
-// GET /api/products/:id - Get a single product by ID
+// ✅ Get product by ID (public)
 router.get('/:id', getProductById);
 
 module.exports = router;

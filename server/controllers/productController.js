@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const cloudinary = require('../utils/cloudinary');
 
 // @desc    Add a product for a user
 // @route   POST /api/products/add
@@ -6,14 +7,18 @@ const Product = require('../models/Product');
 const addProduct = async (req, res) => {
   try {
     const { title, category, description, link, file, message } = req.body;
-    const image = req.file ? req.file.filename : null;
+    
+    // Upload image to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: 'products',
+    });
     
 
     const newProduct = new Product({
       title,
       category,
       description,
-      image,
+      image:result.secure_url, // Cloudinary image URL
       link,
       file,
       message,

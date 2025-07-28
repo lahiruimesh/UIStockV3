@@ -34,10 +34,10 @@ const AllProducts = () => {
             <p className="text-gray-600">{product.message}</p>
             {product.image && (
                 <img
-                    src={`http://localhost:5000/uploads/${product.image}`}
-                    alt={product.title}
-                    className="w-full h-48 object-cover rounded-lg mt-2"
-                />
+                src={product.image}
+                alt={product.title}
+                className="w-full h-48 object-cover rounded-lg mt-2"
+              />          
                 )}
             <p className="text-gray-600">{product.file}</p>
             <p className="text-gray-600">{product.link}</p>
