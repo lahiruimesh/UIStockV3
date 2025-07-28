@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const sendEmail = require("../utils/sendEmail");
 
 // Register
 const registerUser = async (req, res) => {
@@ -10,6 +11,13 @@ const registerUser = async (req, res) => {
   if (userExists) return res.status(400).json({ message: 'User already exists' });
 
   const hashedPassword = await bcrypt.hash(password, 10);
+
+  // Send confirmation email
+  await sendEmail(
+    email,
+    "Welcome to UIStock 🎉",
+    `Hi ${username},\n\nThank you for registering at UIStock!\n\nBest,\nUIStock Team`
+  );
 
   const user = await User.create({ username, email, password: hashedPassword });
   res.status(201).json({ id: user._id, email: user.email });

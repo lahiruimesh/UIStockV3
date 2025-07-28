@@ -32,7 +32,7 @@ const ProductDetails = () => {
       <p className="text-green-600 font-medium mb-2">{product.category}</p>
       {product.image && (
         <img
-          src={`http://localhost:5000/uploads/${product.image}`}
+          src={product.image}
           alt={product.title}
           className="max-w-full h-auto mb-4"
         />
