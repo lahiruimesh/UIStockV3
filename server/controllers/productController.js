@@ -83,10 +83,48 @@ const getProductById = async (req, res) => {
   }
 };
 
+// @desc    Delete a product by ID
+// @route   DELETE /api/products/:id
+// @access  Private
+const deleteProduct = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Check if logged-in user owns the product
+    if (!req.user || product.userId.toString() !== req.user.id) {
+      return res.status(401).json({ message: "Not authorized to delete this product" });
+    }
+
+    // Delete images from Cloudinary
+    if (product.images && product.images.length > 0) {
+      const deletePromises = product.images.map((url) => {
+        const parts = url.split('/');
+        const filename = parts[parts.length - 1]; // e.g., abc123.jpg
+        const publicId = `products/${filename.split('.')[0]}`;
+        return cloudinary.uploader.destroy(publicId);
+      });
+      await Promise.all(deletePromises);
+    }
+
+    await product.deleteOne();
+
+    res.json({ message: "Product deleted successfully" });
+  } catch (err) {
+    console.error("Delete error:", err);
+    res.status(500).json({ message: "Failed to delete product" });
+  }
+};
+
+
 
 module.exports = {
   addProduct,
   getMyProducts,
   getAllProducts,
   getProductById,
+  deleteProduct
 };

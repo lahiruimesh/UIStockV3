@@ -1,5 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { FaUserCircle } from "react-icons/fa"; // 👈 Import icon
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -8,36 +9,34 @@ const Header = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
-        // Scrolling down
-        setVisible(false);
+        setVisible(false); // Scrolling down → hide header
       } else {
-        // Scrolling up
-        setVisible(true);
+        setVisible(true); // Scrolling up → show header
       }
       setLastScrollY(window.scrollY);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 bg-transparent shadow-sm transition-transform duration-300 ${
-        visible ? 'translate-y-0' : '-translate-y-full'
+        visible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -48,38 +47,39 @@ const Header = () => {
 
         {/* Navigation Links */}
         <nav className="flex gap-6 text-white font-medium drop-shadow">
-
           <Link to="/" className="hover:text-blue-300 transition mr-8">
             Home
           </Link>
-
           <Link to="/" className="hover:text-blue-300 transition mr-8">
             About
           </Link>
-
-          <Link to="/" className='hover:text-blue-300 transition mr-8'>
+          <Link to="/" className="hover:text-blue-300 transition mr-8">
             Features
           </Link>
-
-          <Link to="/" className='hover:text-blue-300 transition mr-8'>
-          Blogs
+          <Link to="/" className="hover:text-blue-300 transition mr-8">
+            Blogs
           </Link>
-
-          <Link to="/" className='hover:text-blue-300 transition mr-8'>
-          Contact
+          <Link to="/" className="hover:text-blue-300 transition mr-8">
+            Contact
           </Link>
-
         </nav>
 
         {/* Auth Buttons */}
-        <div className="flex gap-4">
+        <div className="flex items-center gap-4">
           {isLoggedIn ? (
-            <button
-              onClick={handleLogout}
-              className="text-sm px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
-            >
-              Logout
-            </button>
+            <>
+              {/* Profile Icon */}
+              <Link to="/profile">
+                <FaUserCircle className="text-3xl text-white hover:text-blue-400 transition cursor-pointer" />
+              </Link>
+
+              <button
+                onClick={handleLogout}
+                className="text-sm px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+              >
+                Logout
+              </button>
+            </>
           ) : (
             <>
               <Link

@@ -8,6 +8,7 @@ import ProductDetails from "./pages/ProductDetails";
 import LandingPage from "./pages/LandingPage";
 import Footer from "./components/Footer";
 import ContactOwner from "./pages/ContactOwner";
+import UserProfile from "./pages/UserProfile";
 
 function App() {  
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/allProducts" element={<AllProducts />} />
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/contactOwner/:ownerId" element={<ContactOwner />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </BrowserRouter>
   );

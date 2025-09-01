@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const contactRoutes = require("./routes/contactRoutes");
+const userProfileRoutes = require("./routes/userProfileRoutes");
 
 // Load env variables
 dotenv.config();
@@ -34,6 +35,9 @@ const path = require('path');
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use("/api/contact", contactRoutes);
+
+app.use("/api/profile", userProfileRoutes);
+
 
 // Start server
 const PORT = process.env.PORT || 5000;

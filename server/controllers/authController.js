@@ -38,4 +38,5 @@ const loginUser = async (req, res) => {
   res.json({ token, user: { id: user._id, email: user.email } });
 };
 
+
 module.exports = { registerUser, loginUser };
