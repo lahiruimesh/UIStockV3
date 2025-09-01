@@ -24,7 +24,7 @@ const AllProducts = () => {
     <h1 className="text-4xl mt-20 font-extrabold text-center text-white mb-2 tracking-wide">
       Explore All Products
     </h1>
-    <p className="text-gray-300 text-center mb-6 text-xl mb-12">
+    <p className="text-gray-300 text-center mb-16 text-xl mb-12">
       Browse through all the products added by our community.
     </p>
 
@@ -35,13 +35,14 @@ const AllProducts = () => {
           className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-5 shadow-lg hover:shadow-2xl hover:scale-[1.02] transition transform duration-300"
         >
           {/* Product Image */}
-          {product.image && (
-            <img
-              src={product.image}
-              alt={product.title}
-              className="w-full h-48 object-cover rounded-xl mb-4"
-            />
-          )}
+          {product.images?.length > 0 && (
+          <img
+            src={product.images[1]}
+            alt={product.title}
+            className="w-full h-48 object-cover rounded-xl mb-4"
+          />
+        )}
+
 
           {/* Product Info */}
           <h2 className="text-xl font-bold text-white">{product.title}</h2>

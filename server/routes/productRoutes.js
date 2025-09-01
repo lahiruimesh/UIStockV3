@@ -27,7 +27,7 @@ const {
 } = require('../controllers/productController');
 
 // ✅ Add product (image goes to Cloudinary)
-router.post('/add', verifyToken, upload.single('image'), addProduct);
+router.post('/add', verifyToken, upload.array('images', 4), addProduct);
 
 // ✅ Get all products (public)
 router.get('/', getAllProducts);

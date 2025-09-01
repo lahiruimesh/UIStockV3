@@ -42,7 +42,7 @@ const CategoriesPreview = () => {
           Discover, share, or download creative designs and code –<br />all in one place.
         </p>
   
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
           {categories.map((cat, index) => (
             <Link
               key={index}
@@ -50,12 +50,12 @@ const CategoriesPreview = () => {
               className="bg-gradient-to-b from-[#413EA2] to-gray-900 rounded-2xl shadow-lg p-6 flex flex-col items-center hover:scale-105 hover:shadow-2xl transition-transform duration-300"
             >
               <img
-                className="w-48 h-36 object-cover rounded-lg mb-8 mt-8 shadow-md"
+                className="w-48 h-36 object-cover rounded-lg mb-6 mt-4 shadow-md"
                 src={cat.image}
                 alt={cat.title}
               />
               <h2 className="text-2xl font-semibold text-white mb-8">{cat.title}</h2>
-              <p className="text-gray-300 text-lg text-center mb-8">{cat.description}</p>
+              <p className="text-gray-300 text-lg text-center mb-6">{cat.description}</p>
             </Link>
           ))}
         </div>

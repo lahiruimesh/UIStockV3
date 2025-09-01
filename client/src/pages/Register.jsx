@@ -74,13 +74,30 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen mt-36">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-sm mx-auto mt-10">
-        <div><input name="username" type="text" placeholder="Username" onChange={handleChange} className="p-2 border" />{errors.username && <p style={{ color: 'red' }}>{errors.username}</p>}</div>
-        <div><input name="email" type="email" placeholder="Email" onChange={handleChange} className="p-2 border" />{errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}</div>
-        <div><input name="password" type="password" placeholder="Password" onChange={handleChange} className="p-2 border" />{errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}</div>
+    <div 
+    className="w-screen h-screen bg-cover grid grid-cols-2 bg-center flex items-center justify-center"
+    style={{ backgroundImage: `url('/hero.png')` }}
+    >
+    <div>
+    <img
+          src="/image2.png"
+          alt="Hero Graphic"
+          className="max-w-[600px] h-[480px] mr-[220px] mt-[70px]"
+        />
+    </div>
+    <div className="mr-6">
+      <div className="text-right flex flex-col items-end mr-24 pt-4">
+        <h1 className="text-4xl text-white font-bold">Create Account<br />Unlock Access Now</h1>
+      </div>
+      <div className="flex justify-end px-8 mr-16">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-sm mt-10 w-full">
+        <input name="username" type="text" placeholder="Username" onChange={handleChange} className="p-2 border h-14 opacity-50 rounded" />{errors.username && <p style={{ color: 'red' }}>{errors.username}</p>}
+        <input name="email" type="email" placeholder="Email" onChange={handleChange} className="p-2 border h-14 opacity-50 rounded" />{errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
+        <input name="password" type="password" placeholder="Password" onChange={handleChange} className="p-2 border h-14 opacity-50 rounded" />{errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
         <button type="submit" className="bg-blue-500 text-white p-2 rounded">Register</button>
       </form>
+    </div>
+    </div>
     </div>
   );
 };

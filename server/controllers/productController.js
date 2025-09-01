@@ -8,17 +8,25 @@ const addProduct = async (req, res) => {
   try {
     const { title, category, description, link, file, message } = req.body;
     
-    // Upload image to Cloudinary
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: 'products',
-    });
+    let imageUrls = [];
+    // If multiple files uploaded
+    if (req.files && req.files.length > 0) {
+      // Upload each file to Cloudinary
+      const uploadPromises = req.files.map((file) =>
+        cloudinary.uploader.upload(file.path, { folder: "products" })
+      );
+      const results = await Promise.all(uploadPromises);
+
+      imageUrls = results.map((r) => r.secure_url);
+    }
+
     
 
     const newProduct = new Product({
       title,
       category,
       description,
-      image:result.secure_url, // Cloudinary image URL
+      images:imageUrls, // Cloudinary image URL
       link,
       file,
       message,

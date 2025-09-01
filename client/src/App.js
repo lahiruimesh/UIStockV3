@@ -7,8 +7,9 @@ import Header from "./components/Header";
 import ProductDetails from "./pages/ProductDetails";
 import LandingPage from "./pages/LandingPage";
 import Footer from "./components/Footer";
+import ContactOwner from "./pages/ContactOwner";
 
-function App() {
+function App() {  
   return (
     <BrowserRouter>
       <Header />
@@ -19,6 +20,7 @@ function App() {
         <Route path="/addProduct" element={<AddProduct />} />
         <Route path="/allProducts" element={<AllProducts />} />
         <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/contactOwner/:ownerId" element={<ContactOwner />} />
       </Routes>
     </BrowserRouter>
   );
