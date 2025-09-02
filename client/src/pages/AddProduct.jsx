@@ -10,7 +10,12 @@ const AddProduct = () => {
     images: [],
     link: "",
     file: "",
-    message: ""
+    message: "",
+    stack: "",
+    github: "",
+    figma: "",
+    otherLink: "",
+    sourceFile: ""
   });
 
   // Handle text/select inputs
@@ -40,12 +45,17 @@ const AddProduct = () => {
         formData.append("images", img);
       });
 
-      if (product.link && product.link.trim()) {
-        formData.append("link", product.link.trim());
-      }
-
-      if (product.file && product.file.trim()) {
-        formData.append("file", product.file.trim());
+      // Dynamic fields by category
+      if (product.category === "Web Design") {
+        if (product.stack) formData.append("stack", product.stack);
+        if (product.github) formData.append("github", product.github);
+        if (product.figma) formData.append("figma", product.figma);
+      } else if (product.category === "UI/UX Design") {
+        if (product.figma) formData.append("figma", product.figma);
+        if (product.otherLink) formData.append("otherLink", product.otherLink);
+      } else if (product.category === "Graphic Design") {
+        if (product.otherLink) formData.append("otherLink", product.otherLink);
+        if (product.sourceFile) formData.append("sourceFile", product.sourceFile);
       }
 
       if (product.message && product.message.trim()) {
@@ -56,12 +66,10 @@ const AddProduct = () => {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`
-          // ⚠️ don't set Content-Type when using FormData
         },
         body: formData
       });
 
-      // ✅ Only parse JSON if available
       let data = {};
       try {
         data = await res.json();
@@ -78,7 +86,12 @@ const AddProduct = () => {
           images: [],
           link: "",
           file: "",
-          message: ""
+          message: "",
+          stack: "",
+          github: "",
+          figma: "",
+          otherLink: "",
+          sourceFile: ""
         });
       } else {
         alert(data.message || "❌ Failed to add product");
@@ -104,6 +117,7 @@ const AddProduct = () => {
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 
+            {/* Title + Description */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input
                 name="title"
@@ -126,6 +140,7 @@ const AddProduct = () => {
               />
             </div>
 
+            {/* Category + Images */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <select
                 name="category"
@@ -135,15 +150,9 @@ const AddProduct = () => {
                 className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-300 focus:outline-none focus:ring-2"
               >
                 <option value="">Select a category</option>
-                <option value="UI Design">UI Design</option>
-                <option value="UX Design">UX Design</option>
                 <option value="Web Design">Web Design</option>
+                <option value="UI/UX Design">UI/UX Design</option>
                 <option value="Graphic Design">Graphic Design</option>
-                <option value="Illustration">Illustration</option>
-                <option value="Motion Graphics">Motion Graphics</option>
-                <option value="Product Design">Product Design</option>
-                <option value="Branding">Branding</option>
-                <option value="Print Design">Print Design</option>
               </select>
 
               <input
@@ -159,26 +168,79 @@ const AddProduct = () => {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
-                name="link"
-                type="text"
-                placeholder="Github Repo or Live Link"
-                onChange={handleChange}
-                value={product.link}
-                className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+            {/* Conditional Fields */}
+            {product.category === "Web Design" && (
+              <>
+                <input
+                  name="stack"
+                  type="text"
+                  placeholder="Tech Stack (React, Tailwind, etc.)"
+                  onChange={handleChange}
+                  value={product.stack}
+                  className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-300 placeholder-gray-400"
+                />
+                <input
+                  name="github"
+                  type="text"
+                  placeholder="GitHub Repo Link"
+                  onChange={handleChange}
+                  value={product.github}
+                  className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-300 placeholder-gray-400"
+                />
+                <input
+                  name="figma"
+                  type="text"
+                  placeholder="Figma Link (optional)"
+                  onChange={handleChange}
+                  value={product.figma}
+                  className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-300 placeholder-gray-400"
+                />
+              </>
+            )}
 
-              <input
-                name="file"
-                type="text"
-                placeholder="Other Link (eg: Figma, Dribbble, Behance)"
-                onChange={handleChange}
-                value={product.file}
-                className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+            {product.category === "UI/UX Design" && (
+              <>
+                <input
+                  name="figma"
+                  type="text"
+                  placeholder="Figma Link"
+                  onChange={handleChange}
+                  value={product.figma}
+                  className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-300 placeholder-gray-400"
+                />
+                <input
+                  name="otherLink"
+                  type="text"
+                  placeholder="Other Link (Behance, Dribbble, etc.)"
+                  onChange={handleChange}
+                  value={product.otherLink}
+                  className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-300 placeholder-gray-400"
+                />
+              </>
+            )}
 
+            {product.category === "Graphic Design" && (
+              <>
+                <input
+                  name="otherLink"
+                  type="text"
+                  placeholder="Other Link (Canva, etc.)"
+                  onChange={handleChange}
+                  value={product.otherLink}
+                  className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-300 placeholder-gray-400"
+                />
+                <input
+                  name="sourceFile"
+                  type="text"
+                  placeholder="Source File Link (PSD, AI, PSB)"
+                  onChange={handleChange}
+                  value={product.sourceFile}
+                  className="p-3 rounded-md border border-gray-600 bg-white/10 text-gray-300 placeholder-gray-400"
+                />
+              </>
+            )}
+
+            {/* Message */}
             <textarea
               name="message"
               placeholder="Message or Notes"

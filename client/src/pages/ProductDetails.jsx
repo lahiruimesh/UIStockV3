@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight } from "lucide-react"; // for arrows
-
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -13,9 +11,8 @@ const ProductDetails = () => {
 
   const navigate = useNavigate();
   const handleContactClick = () => {
-  navigate(`/contactOwner/${product.userId?._id}`); // optionally pass owner ID
-};
-
+    navigate(`/contactOwner/${product.userId?._id}`);
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -39,15 +36,15 @@ const ProductDetails = () => {
       <p className="text-center text-red-500 mt-20">Product not found.</p>
     );
 
-  // Handle Next/Prev
+  // Image Carousel
   const nextImage = () => {
-    if (product.images && product.images.length > 0) {
+    if (product.images?.length > 0) {
       setCurrentIndex((prev) => (prev + 1) % product.images.length);
     }
   };
 
   const prevImage = () => {
-    if (product.images && product.images.length > 0) {
+    if (product.images?.length > 0) {
       setCurrentIndex(
         (prev) => (prev - 1 + product.images.length) % product.images.length
       );
@@ -57,9 +54,8 @@ const ProductDetails = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0e2a] via-[#201E54] to-[#03051a] text-white p-6 flex flex-col items-center">
       <div className="w-full max-w-4xl">
-
         {/* Image Carousel */}
-        {product.images && product.images.length > 0 && (
+        {product.images?.length > 0 && (
           <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-xl shadow-xl mt-28 mb-32">
             <img
               src={product.images[currentIndex]}
@@ -67,15 +63,13 @@ const ProductDetails = () => {
               className="w-full h-full object-cover"
             />
 
-            {/* Left Arrow */}
+            {/* Arrows */}
             <button
               onClick={prevImage}
               className="absolute left-3 top-1/2 transform -translate-y-1/2 bg-black/40 hover:bg-black/60 p-2 rounded-full"
             >
               <ChevronLeft size={28} className="text-white" />
             </button>
-
-            {/* Right Arrow */}
             <button
               onClick={nextImage}
               className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-black/40 hover:bg-black/60 p-2 rounded-full"
@@ -83,7 +77,7 @@ const ProductDetails = () => {
               <ChevronRight size={28} className="text-white" />
             </button>
 
-            {/* Dots Indicator */}
+            {/* Dots */}
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
               {product.images.map((_, index) => (
                 <div
@@ -114,15 +108,33 @@ const ProductDetails = () => {
             </p>
           )}
 
-          {/* Buttons */}
-          <div className="grid grid-cols-2 flex flex-col md:flex-row gap-4">
-            <div className="flex flex-col md:flex-row gap-4">
+          {/* Tech Stack Section */}
+          {product.stack && (
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold text-blue-400">Tech Stack:</h3>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {(Array.isArray(product.stack) ? product.stack : product.stack.split(',')).map((tech, index) => (
+                <span
+                  key={index}
+                  className="bg-blue-900/70 text-blue-200 px-3 py-1 rounded-full text-sm shadow-md"
+                >
+                  {tech.trim()}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+
+
+          {/* Buttons Section */}
+          <div className="flex flex-col md:flex-row flex-wrap gap-4 mb-6">
             {product.link && (
               <a
                 href={product.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg text-center transition"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg text-center transition w-full md:w-auto"
               >
                 Explore
               </a>
@@ -132,22 +144,57 @@ const ProductDetails = () => {
                 href={product.file}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg text-center transition"
+                className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg text-center transition w-full md:w-auto"
               >
                 Open File
               </a>
             )}
-            </div>
-
-            <div className="flex flex-col md:flex-row gap-4">
+            {product.github && (
+              <a
+                href={product.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-6 py-3 rounded-lg text-center transition w-full md:w-auto"
+              >
+                GitHub Repo
+              </a>
+            )}
+            {product.figma && (
+              <a
+                href={product.figma}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-lg text-center transition w-full md:w-auto"
+              >
+                Figma Design
+              </a>
+            )}
+            {product.otherLink && (
+              <a
+                href={product.otherLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-lg text-center transition w-full md:w-auto"
+              >
+                Additional Link
+              </a>
+            )}
+            {product.sourceFile && (
+              <a
+                href={product.sourceFile}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-lg text-center transition w-full md:w-auto"
+              >
+                Source File
+              </a>
+            )}
             <button
               onClick={handleContactClick}
-              className="bg-red-600 hover:bg-red-700 ml-auto text-white font-semibold px-6 py-3 rounded-lg text-center transition"
+              className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-lg text-center transition w-full md:w-auto"
             >
               Contact Owner
             </button>
-            </div>
-
           </div>
         </div>
       </div>

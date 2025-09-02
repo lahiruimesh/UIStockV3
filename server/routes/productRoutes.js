@@ -25,6 +25,7 @@ const {
   getAllProducts,
   getProductById,
   deleteProduct,
+  searchProducts
 } = require('../controllers/productController');
 
 // ✅ Add product (image goes to Cloudinary)
@@ -36,10 +37,15 @@ router.get('/', getAllProducts);
 // ✅ Get my products (protected)
 router.get('/my-products', verifyToken, getMyProducts);
 
+// Search products
+router.get('/search', searchProducts);
+
 // ✅ Get product by ID (public)
 router.get('/:id', getProductById);
 
 // Delete product
 router.delete('/:id', verifyToken, deleteProduct);
+
+
 
 module.exports = router;

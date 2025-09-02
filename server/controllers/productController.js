@@ -6,8 +6,20 @@ const cloudinary = require('../utils/cloudinary');
 // @access  Private
 const addProduct = async (req, res) => {
   try {
-    const { title, category, description, link, file, message } = req.body;
-    
+    const {
+      title,
+      category,
+      description,
+      link,
+      file,
+      message,
+      stack,
+      github,
+      figma,
+      otherLink,
+      sourceFile
+    } = req.body;
+
     let imageUrls = [];
     // If multiple files uploaded
     if (req.files && req.files.length > 0) {
@@ -20,18 +32,32 @@ const addProduct = async (req, res) => {
       imageUrls = results.map((r) => r.secure_url);
     }
 
-    
-
-    const newProduct = new Product({
+    // ✅ Build product data dynamically
+    const newProductData = {
       title,
       category,
       description,
-      images:imageUrls, // Cloudinary image URL
+      images: imageUrls,
       link,
       file,
       message,
       userId: req.user.id
-    });
+    };
+
+    // Add fields depending on category
+    if (category === "Web Design") {
+      if (stack) newProductData.stack = stack;
+      if (github) newProductData.github = github;
+      if (figma) newProductData.figma = figma;
+    } else if (category === "UI/UX Design") {
+      if (figma) newProductData.figma = figma;
+      if (otherLink) newProductData.otherLink = otherLink;
+    } else if (category === "Graphic Design") {
+      if (otherLink) newProductData.otherLink = otherLink;
+      if (sourceFile) newProductData.sourceFile = sourceFile;
+    }
+
+    const newProduct = new Product(newProductData);
 
     await newProduct.save();
     res.status(201).json(newProduct);
@@ -46,7 +72,7 @@ const addProduct = async (req, res) => {
 // @access  Public
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find().populate('userId', 'email'); // optional: include user email
+    const products = await Product.find().populate('userId', 'email');
     res.json(products);
   } catch (err) {
     console.error(err);
@@ -103,7 +129,7 @@ const deleteProduct = async (req, res) => {
     if (product.images && product.images.length > 0) {
       const deletePromises = product.images.map((url) => {
         const parts = url.split('/');
-        const filename = parts[parts.length - 1]; // e.g., abc123.jpg
+        const filename = parts[parts.length - 1];
         const publicId = `products/${filename.split('.')[0]}`;
         return cloudinary.uploader.destroy(publicId);
       });
@@ -119,6 +145,29 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+// @desc    Search products
+// @route   GET /api/products/search
+// @access  Public
+const searchProducts = async (req, res) => {
+  try {
+    const { query } = req.query;
+    if (!query) return res.status(400).json({ message: "Query is required" });
+
+    const products = await Product.find({
+      $or: [
+        { title: { $regex: query, $options: 'i' } },
+        { description: { $regex: query, $options: 'i' } },
+        { category: { $regex: query, $options: 'i' } },
+        { stack: { $in: [new RegExp(query, 'i')] } }
+      ]
+    }).populate('userId', 'email');
+
+    res.json(products);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to search products" });
+  }
+};
 
 
 module.exports = {
@@ -126,5 +175,6 @@ module.exports = {
   getMyProducts,
   getAllProducts,
   getProductById,
-  deleteProduct
+  deleteProduct,
+  searchProducts
 };
